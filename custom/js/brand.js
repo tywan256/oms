@@ -1,50 +1,96 @@
-var manageBrandTable;
+var manageSupplierTable;
 
 $(document).ready(function() {
 	// top bar active
 	$('#navBrand').addClass('active');
 	
-	// manage brand table
-	manageBrandTable = $("#manageBrandTable").DataTable({
-		'ajax': 'php_action/fetchBrand.php',
+	// manage supplier table
+	manageSupplierTable = $("#manageSupplierTable").DataTable({
+		'ajax': 'php_action/fetchSupplier.php',
 		'order': []		
 	});
 
-	// submit brand form function
-	$("#submitBrandForm").unbind('submit').bind('submit', function() {
+	// submit supplier form function
+	$("#submitSupplierForm").unbind('submit').bind('submit', function() {
 		// remove the error text
 		$(".text-danger").remove();
 		// remove the form error
 		$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-		var brandName = $("#brandName").val();
-		var brandStatus = $("#brandStatus").val();
+		var supplierName = $("#supplierName").val();
+		var supplierType = $("#supplierType").val();
+		var supplierLocation = $("#supplierLocation").val();
+		var supplierCity = $("#supplierCity").val();
+		var supplierContact = $("#supplierContact").val();
+		var supplierStatus = $("#supplierStatus").val();
 
-		if(brandName == "") {
-			$("#brandName").after('<p class="text-danger">Brand Name field is required</p>');
-			$('#brandName').closest('.form-group').addClass('has-error');
+		if(supplierName == "") {
+			$("#supplierName").after('<p class="text-danger">Supplier Name field is required</p>');
+			$('#supplierName').closest('.form-group').addClass('has-error');
 		} else {
 			// remov error text field
-			$("#brandName").find('.text-danger').remove();
+			$("#supplierName").find('.text-danger').remove();
 			// success out for form 
-			$("#brandName").closest('.form-group').addClass('has-success');	  	
+			$("#supplierName").closest('.form-group').addClass('has-success');	  	
 		}
 
+
+		if(supplierType == "") {
+			$("#supplierType").after('<p class="text-danger">Supplier Type field is required</p>');
+			$('#supplierType').closest('.form-group').addClass('has-error');
+		} else {
+			// remov error text field
+			$("#supplierType").find('.text-danger').remove();
+			// success out for form 
+			$("#supplierType").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(supplierLocation == "") {
+			$("#supplierLocation").after('<p class="text-danger">Supplier Location field is required</p>');
+			$('#supplierLocation').closest('.form-group').addClass('has-error');
+		} else {
+			// remov error text field
+			$("#supplierLocation").find('.text-danger').remove();
+			// success out for form 
+			$("#supplierLocation").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(supplierCity == "") {
+			$("#supplierCity").after('<p class="text-danger">Supplier City field is required</p>');
+			$('#supplierCity').closest('.form-group').addClass('has-error');
+		} else {
+			// remov error text field
+			$("#supplierCity").find('.text-danger').remove();
+			// success out for form 
+			$("#supplierCity").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(supplierContact == "") {
+			$("#supplierContact").after('<p class="text-danger">Supplier Contact field is required</p>');
+			$('#supplierContact').closest('.form-group').addClass('has-error');
+		} else {
+			// remov error text field
+			$("#supplierContact").find('.text-danger').remove();
+			// success out for form 
+			$("#supplierContact").closest('.form-group').addClass('has-success');	  	
+		}
+								
 		if(brandStatus == "") {
-			$("#brandStatus").after('<p class="text-danger">Brand Name field is required</p>');
+			$("#supplierStatus").after('<p class="text-danger">Supplier Status field is required</p>');
 
-			$('#brandStatus').closest('.form-group').addClass('has-error');
+			$('#supplierStatus').closest('.form-group').addClass('has-error');
 		} else {
 			// remov error text field
-			$("#brandStatus").find('.text-danger').remove();
+			$("#supplierStatus").find('.text-danger').remove();
 			// success out for form 
-			$("#brandStatus").closest('.form-group').addClass('has-success');	  	
+			$("#supplierStatus").closest('.form-group').addClass('has-success');	  	
 		}
 
-		if(brandName && brandStatus) {
+		if(supplierName && supplierType && supplierLocation && supplierCity &&
+			supplierContact && supplierStatus) {
 			var form = $(this);
 			// button loading
-			$("#createBrandBtn").button('loading');
+			$("#createSupplierBtn").button('loading');
 
 			$.ajax({
 				url : form.attr('action'),
@@ -53,20 +99,20 @@ $(document).ready(function() {
 				dataType: 'json',
 				success:function(response) {
 					// button loading
-					$("#createBrandBtn").button('reset');
+					$("#createSupplierBtn").button('reset');
 
 					if(response.success == true) {
 						// reload the manage member table 
-						manageBrandTable.ajax.reload(null, false);						
+						manageSupplierTable.ajax.reload(null, false);						
 
-  	  			// reset the form text
-						$("#submitBrandForm")[0].reset();
+  	  					// reset the form text
+						$("#submitSupplierForm")[0].reset();
 						// remove the error text
 						$(".text-danger").remove();
 						// remove the form error
 						$('.form-group').removeClass('has-error').removeClass('has-success');
   	  			
-  	  			$('#add-brand-messages').html('<div class="alert alert-success">'+
+  	  			$('#add-supplier-messages').html('<div class="alert alert-success">'+
             '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
             '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
           '</div>');
@@ -83,14 +129,14 @@ $(document).ready(function() {
 		} // if
 
 		return false;
-	}); // /submit brand form function
+	}); // /submit supplier form function
 
 });
 
-function editBrands(brandId = null) {
-	if(brandId) {
-		// remove hidden brand id text
-		$('#brandId').remove();
+function editSuppliers(supplierId = null) {
+	if(supplierId) {
+		// remove hidden supplier id text
+		$('#supplierId').remove();
 
 		// remove the error 
 		$('.text-danger').remove();
@@ -100,67 +146,121 @@ function editBrands(brandId = null) {
 		// modal loading
 		$('.modal-loading').removeClass('div-hide');
 		// modal result
-		$('.edit-brand-result').addClass('div-hide');
+		$('.edit-supplier-result').addClass('div-hide');
 		// modal footer
-		$('.editBrandFooter').addClass('div-hide');
+		$('.editSupplierFooter').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedBrand.php',
+			url: 'php_action/fetchSelectedSupplier.php',
 			type: 'post',
-			data: {brandId : brandId},
+			data: {supplierId : supplierId},
 			dataType: 'json',
 			success:function(response) {
 				// modal loading
 				$('.modal-loading').addClass('div-hide');
 				// modal result
-				$('.edit-brand-result').removeClass('div-hide');
+				$('.edit-supplier-result').removeClass('div-hide');
 				// modal footer
-				$('.editBrandFooter').removeClass('div-hide');
+				$('.editSupplierFooter').removeClass('div-hide');
 
-				// setting the brand name value 
-				$('#editBrandName').val(response.brand_name);
-				// setting the brand status value
-				$('#editBrandStatus').val(response.brand_active);
-				// brand id 
-				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.brand_id+'" />');
+				// setting the supplier name value 
+				$('#editSupplierName').val(response.supplier_name);
+				// setting the supplier type value 
+				$('#editSupplierType').val(response.supplier_type);
+				// setting the supplier location value 
+				$('#editSupplierLocation').val(response.supplier_location);
+				// setting the supplier city value 
+				$('#editSupplierCity').val(response.supplier_city);
+				// setting the supplier contact value 
+				$('#editSupplierContact').val(response.supplier_contact);
+				// setting the supplier status value
+				$('#editSupplierStatus').val(response.supplier_active);
+				// supplier id 
+				$(".editSupplierFooter").after('<input type="hidden" name="supplierId" id="supplierId" value="'+response.supplier_id+'" />');
 
 				// update brand form 
-				$('#editBrandForm').unbind('submit').bind('submit', function() {
+				$('#editSupplierForm').unbind('submit').bind('submit', function() {
 
 					// remove the error text
 					$(".text-danger").remove();
 					// remove the form error
 					$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-					var brandName = $('#editBrandName').val();
-					var brandStatus = $('#editBrandStatus').val();
+					var supplierName = $("#editSupplierName").val();
+					var supplierType = $("#editSupplierType").val();
+					var supplierLocation = $("#editSupplierLocation").val();
+					var supplierCity = $("#editSupplierCity").val();
+					var supplierContact = $("#editSupplierContact").val();
+					var supplierStatus = $("#editSupplierStatus").val();
 
-					if(brandName == "") {
-						$("#editBrandName").after('<p class="text-danger">Brand Name field is required</p>');
-						$('#editBrandName').closest('.form-group').addClass('has-error');
+					if(supplierName == "") {
+						$("#editSupplierName").after('<p class="text-danger">Supplier Name field is required</p>');
+						$('#editSupplierName').closest('.form-group').addClass('has-error');
 					} else {
 						// remov error text field
-						$("#editBrandName").find('.text-danger').remove();
+						$("editSsupplierName").find('.text-danger').remove();
 						// success out for form 
-						$("#editBrandName").closest('.form-group').addClass('has-success');	  	
+						$("#editSupplierName").closest('.form-group').addClass('has-success');	  	
 					}
 
-					if(brandStatus == "") {
-						$("#editBrandStatus").after('<p class="text-danger">Brand Name field is required</p>');
 
-						$('#editBrandStatus').closest('.form-group').addClass('has-error');
+					if(supplierType == "") {
+						$("#editSupplierType").after('<p class="text-danger">Supplier Type field is required</p>');
+						$('#editSupplierType').closest('.form-group').addClass('has-error');
 					} else {
-						// remove error text field
-						$("#editBrandStatus").find('.text-danger').remove();
+						// remov error text field
+						$("#editSupplierType").find('.text-danger').remove();
 						// success out for form 
-						$("#editBrandStatus").closest('.form-group').addClass('has-success');	  	
+						$("#editSupplierType").closest('.form-group').addClass('has-success');	  	
 					}
 
-					if(brandName && brandStatus) {
+					if(supplierLocation == "") {
+						$("#editSupplierLocation").after('<p class="text-danger">Supplier Location field is required</p>');
+						$('#editSupplierLocation').closest('.form-group').addClass('has-error');
+					} else {
+						// remov error text field
+						$("#editSupplierLocation").find('.text-danger').remove();
+						// success out for form 
+						$("#editSupplierLocation").closest('.form-group').addClass('has-success');	  	
+					}
+
+					if(supplierCity == "") {
+						$("#editSupplierCity").after('<p class="text-danger">Supplier City field is required</p>');
+						$('#editSupplierCity').closest('.form-group').addClass('has-error');
+					} else {
+						// remov error text field
+						$("#editSupplierCity").find('.text-danger').remove();
+						// success out for form 
+						$("#editSupplierCity").closest('.form-group').addClass('has-success');	  	
+					}
+
+					if(supplierContact == "") {
+						$("#editSupplierContact").after('<p class="text-danger">Supplier Contact field is required</p>');
+						$('#editSupplierContact').closest('.form-group').addClass('has-error');
+					} else {
+						// remov error text field
+						$("#editSupplierContact").find('.text-danger').remove();
+						// success out for form 
+						$("#editSupplierContact").closest('.form-group').addClass('has-success');	  	
+					}
+											
+					if(brandStatus == "") {
+						$("#editSupplierStatus").after('<p class="text-danger">Supplier Status field is required</p>');
+
+						$('#editSupplierStatus').closest('.form-group').addClass('has-error');
+					} else {
+						// remov error text field
+						$("#editSupplierStatus").find('.text-danger').remove();
+						// success out for form 
+						$("#editSupplierStatus").closest('.form-group').addClass('has-success');	  	
+					}
+
+					if(supplierName && supplierType && supplierLocation && supplierCity &&
+						supplierContact && supplierStatus) {
 						var form = $(this);
 
 						// submit btn
-						$('#editBrandBtn').button('loading');
+						$('#editSupplierBtn').button('loading');
 
 						$.ajax({
 							url: form.attr('action'),
@@ -172,16 +272,16 @@ function editBrands(brandId = null) {
 								if(response.success == true) {
 									console.log(response);
 									// submit btn
-									$('#editBrandBtn').button('reset');
+									$('#editSupplierBtn').button('reset');
 
 									// reload the manage member table 
-									manageBrandTable.ajax.reload(null, false);								  	  										
+									manageSupplierTable.ajax.reload(null, false);								  	  										
 									// remove the error text
 									$(".text-danger").remove();
 									// remove the form error
 									$('.form-group').removeClass('has-error').removeClass('has-success');
 			  	  			
-			  	  			$('#edit-brand-messages').html('<div class="alert alert-success">'+
+			  	  			$('.remove-messages').html('<div class="alert alert-success">'+
 			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 			            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
 			          '</div>');
@@ -208,38 +308,38 @@ function editBrands(brandId = null) {
 	}
 } // /edit brands function
 
-function removeBrands(brandId = null) {
-	if(brandId) {
-		$('#removeBrandId').remove();
+function removeSuppliers(supplierId = null) {
+	if(supplierId) {
+		$('#removeSupplierId').remove();
 		$.ajax({
-			url: 'php_action/fetchSelectedBrand.php',
+			url: 'php_action/fetchSelectedSupplier.php',
 			type: 'post',
-			data: {brandId : brandId},
+			data: {supplierId : supplierId},
 			dataType: 'json',
 			success:function(response) {
-				$('.removeBrandFooter').after('<input type="hidden" name="removeBrandId" id="removeBrandId" value="'+response.brand_id+'" /> ');
+				$('.removeSupplierFooter').after('<input type="hidden" name="removeSupplierId" id="removeSupplierId" value="'+response.supplier_id+'" /> ');
 
 				// click on remove button to remove the brand
-				$("#removeBrandBtn").unbind('click').bind('click', function() {
+				$("#removeSupplierBtn").unbind('click').bind('click', function() {
 					// button loading
-					$("#removeBrandBtn").button('loading');
+					$("#removeSupplierBtn").button('loading');
 
 					$.ajax({
-						url: 'php_action/removeBrand.php',
+						url: 'php_action/removeSupplier.php',
 						type: 'post',
-						data: {brandId : brandId},
+						data: {supplierId : supplierId},
 						dataType: 'json',
 						success:function(response) {
 							console.log(response);
 							// button loading
-							$("#removeBrandBtn").button('reset');
+							$("#removeSupplierBtn").button('reset');
 							if(response.success == true) {
 
 								// hide the remove modal 
 								$('#removeMemberModal').modal('hide');
 
 								// reload the brand table 
-								manageBrandTable.ajax.reload(null, false);
+								manageSupplierTable.ajax.reload(null, false);
 								
 								$('.remove-messages').html('<div class="alert alert-success">'+
 			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
@@ -255,14 +355,14 @@ function removeBrands(brandId = null) {
 
 							} // /else
 						} // /response messages
-					}); // /ajax function to remove the brand
+					}); // /ajax function to remove the supplier
 
-				}); // /click on remove button to remove the brand
+				}); // /click on remove button to remove the supplier
 
 			} // /success
 		}); // /ajax
 
-		$('.removeBrandFooter').after();
+		$('.removeSupplierFooter').after();
 	} else {
 		alert('error!! Refresh the page again');
 	}
