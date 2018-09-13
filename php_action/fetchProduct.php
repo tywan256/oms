@@ -4,10 +4,10 @@
 
 require_once 'core.php';
 
-$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
+$sql = "SELECT product.product_id, product.product_name, product.product_image, product.supplier_id,
  		product.categories_id, product.quantity, product.rate, product.active, product.status, 
- 		brands.brand_name, categories.categories_name FROM product 
-		INNER JOIN brands ON product.brand_id = brands.brand_id 
+ 		suppliers.supplier_name, categories.categories_name FROM product 
+		INNER JOIN suppliers ON product.supplier_id = suppliers.supplier_id 
 		INNER JOIN categories ON product.categories_id = categories.categories_id  
 		WHERE product.status = 1 AND product.quantity>0";
 
@@ -42,15 +42,15 @@ if($result->num_rows > 0) {
 	  </ul>
 	</div>';
 
-	// $brandId = $row[3];
-	// $brandSql = "SELECT * FROM brands WHERE brand_id = $brandId";
-	// $brandData = $connect->query($sql);
-	// $brand = "";
-	// while($row = $brandData->fetch_assoc()) {
-	// 	$brand = $row['brand_name'];
+	// $supplierId = $row[3];
+	// $supplierSql = "SELECT * FROM suppliers WHERE supplier_id = $supplierId";
+	// $supplierData = $connect->query($sql);
+	// $supplier = "";
+	// while($row = $supplierData->fetch_assoc()) {
+	// 	$supplier = $row['supplier_name'];
 	// }
 
-	$brand = $row[9];
+	$supplier = $row[9];
 	$category = $row[10];
 
 	$imageUrl = substr($row[2], 3);
@@ -65,8 +65,8 @@ if($result->num_rows > 0) {
  		$row[6],
  		// quantity 
  		$row[5], 		 	
- 		// brand
- 		$brand,
+ 		// supplier
+ 		$supplier,
  		// category 		
  		$category,
  		// active

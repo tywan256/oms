@@ -63,24 +63,103 @@ if($_GET['o'] == 'add') {
 
   		<form class="form-horizontal" method="POST" action="php_action/createOrder.php" id="createOrderForm">
 
-			  <div class="form-group">
-			    <label for="orderDate" class="col-sm-2 control-label">Order Date</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off" />
-			    </div>
-			  </div> <!--/form-group-->
-			  <div class="form-group">
-			    <label for="clientName" class="col-sm-2 control-label">Client Name</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" />
-			    </div>
-			  </div> <!--/form-group-->
-			  <div class="form-group">
-			    <label for="clientContact" class="col-sm-2 control-label">Client Contact</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" />
-			    </div>
-			  </div> <!--/form-group-->			  
+			<div class="col-md-6">  
+				<div class="panel panel-default">
+					<div class="panel-heading">
+				  		<i class="glyphicon glyphicon-plus-sign"></i>	Address Details
+					</div> <!--/panel-->	
+					<div class="panel-body">  				
+					  <div class="form-group">
+					    <label for="orderType" class="col-sm-4">Order Type</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="orderType" name="orderType" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->  					
+					  <div class="form-group">
+					    <label for="orderDate" class="col-sm-4">Order Date</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="deliveryDate" class="col-sm-4">Delivery Date</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="deliveryDate" name="deliveryDate" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->				  
+					  <div class="form-group">
+					    <label for="clientName" class="col-sm-4">Client Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientContact" class="col-sm-4">Client Contact</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					  <div class="form-group">
+					    <label for="deliveryInstructions" class="col-sm-4">Delivery Instructions</label>
+					    <div class="col-sm-8">
+					      <TEXTAREA type="text" class="form-control" id="deliveryInstructions" name="deliveryInstructions" placeholder="Delivery Instructions" autocomplete="off"></TEXTAREA>
+					    </div>
+					  </div> <!--/form-group-->	
+					</div>
+				</div> 				  				  	  
+			</div>
+			<div class="col-md-6">  
+				<div class="panel panel-default">
+					<div class="panel-heading">
+				  		<i class="glyphicon glyphicon-plus-sign"></i>	Address Details
+					</div> <!--/panel-->	
+					<div class="panel-body">  				
+					  <div class="form-group">
+					    <label for="clientStreet" class="col-sm-4">Client Street</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientStreet" name="clientStreet" placeholder="Client Street"autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientDistrict" class="col-sm-4">Client cDistrict</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientDistrict" name="clientDistrict" placeholder="Client District" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientMunicipulty" class="col-sm-4">Client Municipulty</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientMunicipulty" name="clientMunicipulty" placeholder="Client Municipulty" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="clientLatitude" class="col-sm-4">Client Latitude</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientLatitude" name="clientLatitude" placeholder="Client Latitude" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="clientLongitude" class="col-sm-4">Client Longitude</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientLongitude" name="clientLongitude" placeholder="Client Longitude" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					  <div class="form-group">
+					    <label for="pickupURL" class="col-sm-4">Pickup URL</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="pickupURL" name="pickupURL" placeholder="Pickup URL" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="deliveryURL" class="col-sm-4">Delivery URL</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="deliveryURL" name="deliveryURL" placeholder="Delivery URL" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					</div>
+				</div> 				  				  	  
+			</div>
+
 
 			  <table class="table" id="productTable">
 			  	<thead>
@@ -147,7 +226,7 @@ if($_GET['o'] == 'add') {
 
 			  <div class="col-md-6">
 			  	<div class="form-group">
-				    <label for="subTotal" class="col-sm-3 control-label">Sub Amount</label>
+				    <label for="subTotal" class="col-sm-3">Sub Amount</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="subTotal" name="subTotal" disabled="true" />
 				      <input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" />
@@ -155,27 +234,34 @@ if($_GET['o'] == 'add') {
 				  </div> <!--/form-group-->			  
 				   <!--/form-group-->			  
 				  <div class="form-group">
-				    <label for="totalAmount" class="col-sm-3 control-label">Total Amount</label>
+				    <label for="totalAmount" class="col-sm-3">Total Amount</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled="true"/>
 				      <input type="hidden" class="form-control" id="totalAmountValue" name="totalAmountValue" />
 				    </div>
-				  </div> <!--/form-group-->			  
+				  </div> <!--/form-group-->		
 				  <div class="form-group">
-				    <label for="discount" class="col-sm-3 control-label">Discount</label>
+				    <label for="deliveryAmount" class="col-sm-3">Delivery Amount</label>
+				    <div class="col-sm-9">
+				      <input type="text" class="form-control" id="deliveryAmount" name="deliveryAmount" disabled="true"/>
+				      <input type="hidden" class="form-control" id="deliveryAmountValue" name="deliveryAmountValue" />
+				    </div>
+				  </div> <!--/form-group-->					  	  
+				  <div class="form-group">
+				    <label for="discount" class="col-sm-3">Discount</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" />
 				    </div>
 				  </div> <!--/form-group-->	
 				  <div class="form-group">
-				    <label for="grandTotal" class="col-sm-3 control-label">Grand Total</label>
+				    <label for="grandTotal" class="col-sm-3">Grand Total</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="grandTotal" name="grandTotal" disabled="true" />
 				      <input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" />
 				    </div>
 				  </div> <!--/form-group-->	
 				  <div class="form-group">
-				    <label for="vat" class="col-sm-3 control-label gst">GST 18%</label>
+				    <label for="vat" class="col-sm-3 gst">GST 18%</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="vat" name="gstn" readonly="true" />
 				      <input type="hidden" class="form-control" id="vatValue" name="vatValue" />
@@ -185,20 +271,20 @@ if($_GET['o'] == 'add') {
 
 			  <div class="col-md-6">
 			  	<div class="form-group">
-				    <label for="paid" class="col-sm-3 control-label">Paid Amount</label>
+				    <label for="paid" class="col-sm-3">Paid Amount</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" />
 				    </div>
 				  </div> <!--/form-group-->			  
 				  <div class="form-group">
-				    <label for="due" class="col-sm-3 control-label">Due Amount</label>
+				    <label for="due" class="col-sm-3">Due Amount</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="due" name="due" disabled="true" />
 				      <input type="hidden" class="form-control" id="dueValue" name="dueValue" />
 				    </div>
 				  </div> <!--/form-group-->		
 				  <div class="form-group">
-				    <label for="clientContact" class="col-sm-3 control-label">Payment Type</label>
+				    <label for="clientContact" class="col-sm-3">Payment Type</label>
 				    <div class="col-sm-9">
 				      <select class="form-control" name="paymentType" id="paymentType">
 				      	<option value="">~~SELECT~~</option>
@@ -209,7 +295,7 @@ if($_GET['o'] == 'add') {
 				    </div>
 				  </div> <!--/form-group-->							  
 				  <div class="form-group">
-				    <label for="clientContact" class="col-sm-3 control-label">Payment Status</label>
+				    <label for="clientContact" class="col-sm-3">Payment Status</label>
 				    <div class="col-sm-9">
 				      <select class="form-control" name="paymentStatus" id="paymentStatus">
 				      	<option value="">~~SELECT~~</option>
@@ -220,7 +306,7 @@ if($_GET['o'] == 'add') {
 				    </div>
 				  </div> <!--/form-group-->
 				  <div class="form-group">
-				    <label for="clientContact" class="col-sm-3 control-label">Payment Place</label>
+				    <label for="clientContact" class="col-sm-3">Payment Place</label>
 				    <div class="col-sm-9">
 				      <select class="form-control" name="paymentPlace" id="paymentPlace">
 				      	<option value="">~~SELECT~~</option>

@@ -59,13 +59,13 @@
       	<li id="navDashboard"><a href="dashboard.php"><i class="glyphicon glyphicon-list-alt"></i>  Dashboard</a></li>
                
         <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-        <li id="navBrand"><a href="supplier.php"><i class="glyphicon glyphicon-btc"></i>  Supplier</a></li>        
+        <li id="navBrand"><a href="vendor.php?v=manved"><i class="glyphicon glyphicon-btc"></i>  Vendor</a></li>        
 		<?php } ?>
 		<?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
         <li id="navCategories"><a href="categories.php"> <i class="glyphicon glyphicon-th-list"></i> Category</a></li>        
 		<?php } ?>
 		<?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-        <li id="navProduct"><a href="product.php"> <i class="glyphicon glyphicon-ruble"></i> Product </a></li> 
+        <li id="navProduct"><a href="product.php?p=manpro"> <i class="glyphicon glyphicon-ruble"></i> Product </a></li> 
 		<?php } ?>
 		
         <li class="dropdown" id="navOrder">
