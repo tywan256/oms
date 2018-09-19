@@ -25,6 +25,9 @@ $(document).ready(function() {
 		// order date picker
 		$("#orderDate").datepicker();
 
+		// order date picker
+		$("#deliveryDate").datepicker();
+
 		// create order form function
 		$("#createOrderForm").unbind('submit').bind('submit', function() {
 			var form = $(this);

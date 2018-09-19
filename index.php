@@ -1,18 +1,19 @@
 <?php 
-require_once 'php_action/db_connect.php';
+require_once 'php_action/classes/class.user.php';
 
 session_start();
 
-if(isset($_SESSION['userId'])) {
+if(isset($_SESSION['userid'])) {
 	header('location: dashboard.php');	
 }
 
 $errors = array();
 
 if($_POST) {		
-
+	$auser = new USER();
 	$username = $_POST['username'];
 	$password = $_POST['password'];
+    $rs = $auser->login($username,$password);
 
 	if(empty($username) || empty($password)) {
 		if($username == "") {
@@ -23,30 +24,18 @@ if($_POST) {
 			$errors[] = "Password is required";
 		}
 	} else {
-		$sql = "SELECT * FROM users WHERE username = '$username'";
-		$result = $connect->query($sql);
-
-		if($result->num_rows == 1) {
-			$password = md5($password);
-			// exists
-			$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-			$mainResult = $connect->query($mainSql);
-
-			if($mainResult->num_rows == 1) {
-				$value = $mainResult->fetch_assoc();
-				$user_id = $value['user_id'];
+		
+			if (isset($rs) && $rs != NULL){
 
 				// set session
-				$_SESSION['userId'] = $user_id;
+				$_SESSION['userid'] = $rs['userid'];
 
-				header('location: dashboard.php');	
+				header('location: vendor.php?v=manved');	
 			} else{
 				
 				$errors[] = "Incorrect username/password combination";
 			} // /else
-		} else {		
-			$errors[] = "Username doesnot exists";		
-		} // /else
+		
 	} // /else not empty username // password
 	
 } // /if $_POST

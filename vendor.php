@@ -25,8 +25,10 @@
 				<table class="table" id="manageVendorTable">
 					<thead>
 						<tr>
-							<th>VENDOR NAME</th>
-							<th>VENDOR CATEGOERY</th>
+							<th>USER ID</th>
+							<th>FIRST  NAME</th>
+							<th>LAST NAME</th>
+							<th>STATUS</th>
 							<th style="width:15%;">Options</th>
 						</tr>
 					</thead>
@@ -58,7 +60,7 @@
 
 				<div class="remove-messages"></div>
 
-		    	<form class="form-horizontal" id="submitVendorForm" action="php_action/createVendor.php" method="POST">
+		    	<form class="form-horizontal" id="submitVendorForm" action="php_action/createVendor.php" method="POST" >
 			      <div class="modal-header">
 			        <h4 class="modal-title"><i class="fa fa-plus"></i> Add Vendor</h4>
 			      </div>
@@ -82,11 +84,12 @@
 							    </div>
 				        </div> <!-- /form-group-->	 				        
 				        <div class="form-group">
-				        	<label for="vendorCategory" class="col-sm-3">Vendor Category: </label>
+				        	<label for="Category" class="col-sm-3">Category: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <select type="text" class="form-control" id="vendorCategory" placeholder="Vendor Category" name="vendorCategory" autocomplete="off" required>
+							      <select type="text" class="form-control" id="Category" placeholder="Category" name="Category" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
+							      	<option value="N/A">N/A</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group-->	
@@ -98,10 +101,10 @@
 							    </div>
 				        </div> <!-- /form-group-->	    
 				        <div class="form-group">
-				        	<label for="vendorEmail" class="col-sm-3 ">Vendor Email: </label>
+				        	<label for="Email" class="col-sm-3 ">Email: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <input type="text" class="form-control" id="vendorEmail" placeholder="Vendor Email" name="vendorEmail" autocomplete="off" required>
+							      <input type="text" class="form-control" id="Email" placeholder="Email" name="Email" autocomplete="off" required>
 							    </div>
 				        </div><!--  /form-group	-->  
 				        <div class="form-group">
@@ -110,6 +113,7 @@
 							    <div class="col-sm-8">
 							      <select type="text" class="form-control" id="ageBracket" placeholder="Age Bracket" name="ageBracket" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
+							      	<option value="N/A">N/A</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group--> 
@@ -120,8 +124,9 @@
 				        	<label for="Country" class="col-sm-3">Country: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <select type="text" class="form-control" id="vendorCountry" placeholder="Vendor Country" name="vendorCountry" autocomplete="off" required>
+							      <select type="text" class="form-control" id="Country" placeholder="Country" name="Country" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
+							      	<option value="N/A">N/A</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group-->
@@ -133,10 +138,10 @@
 							    </div>
 				        </div> <!-- /form-group-->	
 				        <div class="form-group">
-				        	<label for="vendorGender" class="col-sm-3">Vendor Gender</label>
+				        	<label for="Gender" class="col-sm-3">Gender</label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <select type="text" class="form-control" id="vendorGender" placeholder="Vendor Gender" name="vendorGender" autocomplete="off" required>
+							      <select type="text" class="form-control" id="Gender" placeholder="Gender" name="Gender" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
 							      	<option value="MALE">MALE</option>
 							      	<option value="FEMALE">FEMALE</option>
@@ -144,10 +149,10 @@
 							    </div>
 				        </div> <!-- /form-group-->	
 				        <div class="form-group">
-				        	<label for="Location" class="col-sm-3">Location: </label>
+				        	<label for="Town" class="col-sm-3">Town: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <input type="text" class="form-control" id="vendorLocation" placeholder="Vendor Location" name="vendorLocation" autocomplete="off" required>
+							      <input type="text" class="form-control" id="Town" placeholder="Town" name="Town" autocomplete="off" required>
 							    </div>
 				        </div> <!-- /form-group-->		
 				        <div class="form-group">
@@ -158,10 +163,10 @@
 							    </div>
 				        </div> <!-- /form-group-->
 				        <div class="form-group">
-				        	<label for="vendorStatus" class="col-sm-3">Status: </label>
+				        	<label for="Status" class="col-sm-3">Status: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
-							      <select class="form-control" id="vendorStatus" name="vendorStatus" required>
+							      <select class="form-control" id="Status" name="Status" required>
 							      	<option value="">~~SELECT~~</option>
 							      	<option value="1">Available</option>
 							      	<option value="2">Not Available</option>
@@ -172,24 +177,41 @@
 
 			        <div class="col-sm-12">
 			      		<div class="form-group">
-				        	<label for="vendor_has_xikila_acc"  class="col-sm-12">
-				        		<input type="checkbox" id="vendor_has_xikila_acc " name="vendor_has_xikila_acc " required>
-				        		    	DO YOU HAVE XIKILA ACCOUNT?
+				        	<label  class="col-sm-12">DO YOU HAVE XIKILA ACCOUNT?
+								<br/>
+								<label class="small">
+							      <input type="radio" name="xikilaAccount" value="Yes"> Yes</label>
+							     <br/>
+							    <label class="small">
+							      <input type="radio" name="xikilaAccount" value="No"> No</label>
+							    <br/>
 							</label>
 				        </div> <!-- /form-group--> 
 			      		<div class="form-group">
-			      			<label for="vendor_need_bnco_acc"  class="col-sm-12">
-				        		<input type="checkbox" id="vendor_need_bnco_acc " name="vendor_need_bnco_acc " required>
-				        		     	DO YOU HAVE BANCO POSTAL ACCOUNT?
+			      			<label  class="col-sm-12">DO YOU HAVE BANCO POSTAL ACCOUNT?
+								<br/>
+								<label class="small">
+							      <input type="radio" name="bancoAccount" value="Yes"> Yes</label>
+							     <br/>
+							    <label class="small">
+							      <input type="radio" name="bancoAccount" value="No"> No</label>
+							    <br/>
+				        		
 							</label>
 				        </div> <!-- /form-group--> 
 			      		<div class="form-group">
-			      			<label for="vendor_has_banco_acc"  class="col-sm-12">
-				        		<input type="checkbox" id="vendor_has_banco_acc " name="vendor_has_banco_acc " required>   	DO YOU WANT BANCO POSTAL ACCOUNT?
+			      			<label class="col-sm-12">DO YOU WANT BANCO POSTAL ACCOUNT?
+								<br/>
+								<label class="small">
+							      <input type="radio" name="wantBancoAccount" value="Yes"> Yes</label>
+							     <br/>
+							    <label class="small">
+							      <input type="radio" name="wantBancoAccount" value="No"> No</label>
+							    <br/>				        		  	
 							</label>
 				        </div> <!-- /form-group--> 			        
 			        	<button type="submit" class="btn btn-primary pull-right" id="createVendorBtn" data-loading-text="Loading..." autocomplete="off">Save Changes</button>
-			      	</div> 
+			      	</div>
 
 			      </div> <!-- /modal-body -->
 		     	</form>
@@ -396,6 +418,6 @@
 </div><!-- /.modal -->
 <!-- /remove brand -->
 
-<script src="custom/js/brand.js"></script>
+<script src="custom/js/vendor.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>

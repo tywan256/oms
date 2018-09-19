@@ -2,11 +2,11 @@
 
 session_start();
 
-require_once 'db_connect.php';
+require_once 'classes/dbconnect.php';
 
 // echo $_SESSION['userId'];
 
-if(!$_SESSION['userId']) {
+if(!$_SESSION['userid']) {
 	header('location: http://localhost/erp/erp/index.php');	
 } 
 

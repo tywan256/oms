@@ -1,96 +1,57 @@
-var manageSupplierTable;
+var manageVendorTable;
 
 $(document).ready(function() {
 	// top bar active
 	$('#navBrand').addClass('active');
 	
 	// manage supplier table
-	manageSupplierTable = $("#manageSupplierTable").DataTable({
-		'ajax': 'php_action/fetchSupplier.php',
+	manageVendorTable = $("#manageVendorTable").DataTable({
+		'ajax': 'php_action/fetchVendor.php',
 		'order': []		
-	});
+	});        
 
-	// submit supplier form function
-	$("#submitSupplierForm").unbind('submit').bind('submit', function() {
+	// submit vendor form function
+	$("#submitVendorForm").unbind('submit').bind('submit', function() {
 		// remove the error text
 		$(".text-danger").remove();
 		// remove the form error
 		$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-		var supplierName = $("#supplierName").val();
-		var supplierType = $("#supplierType").val();
-		var supplierLocation = $("#supplierLocation").val();
-		var supplierCity = $("#supplierCity").val();
-		var supplierContact = $("#supplierContact").val();
-		var supplierStatus = $("#supplierStatus").val();
+		var firstName = $("#firstName").val();
+		var lastName = $("#firstName").val();
+		var Category = $("#Category").val();
+		var categoryCode = $("#Category").val();
+		var phoneNumber = $("#phoneNumber").val();
+		var Email = $("#Email").val();
+		var ageBracket = $("#ageBracket").val();
+		var Country = $("#Country").val();
+		var countryCode = $("#countryCode").val();
+		var Gender = $("#Gender").val();
+		var Town = $("#Town").val();
+		var stallNumber = $("#stallNumber").val();
+		var Status = $("#Status").val();
+		var xikilaAccount = $("input:radio[name='xikilaAccount']:checked").val();
+		var bancoAccount = $("input:radio[name='bancoAccount']:checked").val();
+		var wantBancoAccount = $("input:radio[name='wantBancoAccount']:checked").val();
 
-		if(supplierName == "") {
-			$("#supplierName").after('<p class="text-danger">Supplier Name field is required</p>');
-			$('#supplierName').closest('.form-group').addClass('has-error');
+		if(firstName == "") {
+			$("#firstName").after('<p class="text-danger">firstName field is required</p>');
+			$('#firstName').closest('.form-group').addClass('has-error');
 		} else {
 			// remov error text field
-			$("#supplierName").find('.text-danger').remove();
+			$("#firstName").find('.text-danger').remove();
 			// success out for form 
-			$("#supplierName").closest('.form-group').addClass('has-success');	  	
+			$("#firstName").closest('.form-group').addClass('has-success');	  	
 		}
 
+		if(firstName && lastName && Category && categoryCode && phoneNumber
+			&& Email && ageBracket && Country && countryCode && Gender
+			&& Town && stallNumber && Status && xikilaAccount && bancoAccount
+			&& wantBancoAccount) {
 
-		if(supplierType == "") {
-			$("#supplierType").after('<p class="text-danger">Supplier Type field is required</p>');
-			$('#supplierType').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#supplierType").find('.text-danger').remove();
-			// success out for form 
-			$("#supplierType").closest('.form-group').addClass('has-success');	  	
-		}
-
-		if(supplierLocation == "") {
-			$("#supplierLocation").after('<p class="text-danger">Supplier Location field is required</p>');
-			$('#supplierLocation').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#supplierLocation").find('.text-danger').remove();
-			// success out for form 
-			$("#supplierLocation").closest('.form-group').addClass('has-success');	  	
-		}
-
-		if(supplierCity == "") {
-			$("#supplierCity").after('<p class="text-danger">Supplier City field is required</p>');
-			$('#supplierCity').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#supplierCity").find('.text-danger').remove();
-			// success out for form 
-			$("#supplierCity").closest('.form-group').addClass('has-success');	  	
-		}
-
-		if(supplierContact == "") {
-			$("#supplierContact").after('<p class="text-danger">Supplier Contact field is required</p>');
-			$('#supplierContact').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#supplierContact").find('.text-danger').remove();
-			// success out for form 
-			$("#supplierContact").closest('.form-group').addClass('has-success');	  	
-		}
-								
-		if(brandStatus == "") {
-			$("#supplierStatus").after('<p class="text-danger">Supplier Status field is required</p>');
-
-			$('#supplierStatus').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#supplierStatus").find('.text-danger').remove();
-			// success out for form 
-			$("#supplierStatus").closest('.form-group').addClass('has-success');	  	
-		}
-
-		if(supplierName && supplierType && supplierLocation && supplierCity &&
-			supplierContact && supplierStatus) {
 			var form = $(this);
 			// button loading
-			$("#createSupplierBtn").button('loading');
+			$("#createVendorBtn").button('loading');
 
 			$.ajax({
 				url : form.attr('action'),
@@ -99,29 +60,29 @@ $(document).ready(function() {
 				dataType: 'json',
 				success:function(response) {
 					// button loading
-					$("#createSupplierBtn").button('reset');
+					$("#createVendorBtn").button('reset');
 
 					if(response.success == true) {
 						// reload the manage member table 
-						manageSupplierTable.ajax.reload(null, false);						
+						manageVendorTable.ajax.reload(null, false);						
 
   	  					// reset the form text
-						$("#submitSupplierForm")[0].reset();
+						$("#submitVendorForm")[0].reset();
 						// remove the error text
 						$(".text-danger").remove();
 						// remove the form error
 						$('.form-group').removeClass('has-error').removeClass('has-success');
   	  			
-  	  			$('#add-supplier-messages').html('<div class="alert alert-success">'+
-            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-          '</div>');
+		  	  			$('#add-vendor-messages').html('<div class="alert alert-success">'+
+		            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+		            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+		          '</div>');
 
-  	  			$(".alert-success").delay(500).show(10, function() {
-							$(this).delay(3000).hide(10, function() {
-								$(this).remove();
-							});
-						}); // /.alert
+		  	  			$(".alert-success").delay(500).show(10, function() {
+									$(this).delay(3000).hide(10, function() {
+										$(this).remove();
+									});
+								}); // /.alert
 					}  // if
 
 				} // /success
@@ -129,14 +90,14 @@ $(document).ready(function() {
 		} // if
 
 		return false;
-	}); // /submit supplier form function
+	}); // /submit vedor form function
 
 });
 
-function editSuppliers(supplierId = null) {
-	if(supplierId) {
+function editVendors(userid = null) {
+	if(userid) {
 		// remove hidden supplier id text
-		$('#supplierId').remove();
+		$('#userid').remove();
 
 		// remove the error 
 		$('.text-danger').remove();
@@ -153,7 +114,7 @@ function editSuppliers(supplierId = null) {
 		$.ajax({
 			url: 'php_action/fetchSelectedSupplier.php',
 			type: 'post',
-			data: {supplierId : supplierId},
+			data: {userid : userid},
 			dataType: 'json',
 			success:function(response) {
 				// modal loading
@@ -176,22 +137,32 @@ function editSuppliers(supplierId = null) {
 				// setting the supplier status value
 				$('#editSupplierStatus').val(response.supplier_active);
 				// supplier id 
-				$(".editSupplierFooter").after('<input type="hidden" name="supplierId" id="supplierId" value="'+response.supplier_id+'" />');
+				$(".editSupplierFooter").after('<input type="hidden" name="userid" id="userid" value="'+response.supplier_id+'" />');
 
 				// update brand form 
-				$('#editSupplierForm').unbind('submit').bind('submit', function() {
+				$('#editVendorForm').unbind('submit').bind('submit', function() {
 
 					// remove the error text
 					$(".text-danger").remove();
 					// remove the form error
 					$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-					var supplierName = $("#editSupplierName").val();
-					var supplierType = $("#editSupplierType").val();
-					var supplierLocation = $("#editSupplierLocation").val();
-					var supplierCity = $("#editSupplierCity").val();
-					var supplierContact = $("#editSupplierContact").val();
-					var supplierStatus = $("#editSupplierStatus").val();
+					var firstName = $("#firstName").val();
+					var lastName = $("#firstName").val();
+					var Category = $("#Category").val();
+					var categoryCode = $("#Category").val();
+					var phoneNumber = $("#phoneNumber").val();
+					var Email = $("#Email").val();
+					var ageBracket = $("#ageBracket").val();
+					var Country = $("#Country").val();
+					var countryCode = $("#countryCode").val();
+					var Gender = $("#Gender").val();
+					var Town = $("#Town").val();
+					var stallNumber = $("#stallNumber").val();
+					var Status = $("#Status").val();
+					var xikilaAccount = $("input:radio[name='xikilaAccount']:checked").val();
+					var bancoAccount = $("input:radio[name='bancoAccount']:checked").val();
+					var wantBancoAccount = $("input:radio[name='wantBancoAccount']:checked").val();
 
 					if(supplierName == "") {
 						$("#editSupplierName").after('<p class="text-danger">Supplier Name field is required</p>');

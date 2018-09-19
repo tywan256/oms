@@ -6,7 +6,7 @@ require_once 'db_connect.php';
 
 // echo $_SESSION['userId'];
 
-if(!$_SESSION['userId']) {
+if(!$_SESSION['userid']) {
 	header('location: http://localhost/erp/erp/index.php');	
 } 
 

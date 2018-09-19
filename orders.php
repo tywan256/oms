@@ -2,12 +2,12 @@
 require_once 'php_action/db_connect.php'; 
 require_once 'includes/header.php'; 
 
-if($_GET['o'] == 'add') { 
+if(isset($_GET['o']) && $_GET['o'] == 'add') { 
 // add order
 	echo "<div class='div-request div-hide'>add</div>";
-} else if($_GET['o'] == 'manord') { 
+} else if(isset($_GET['o']) && $_GET['o'] == 'manord') { 
 	echo "<div class='div-request div-hide'>manord</div>";
-} else if($_GET['o'] == 'editOrd') { 
+} else if(isset($_GET['o']) && $_GET['o'] == 'editOrd') { 
 	echo "<div class='div-request div-hide'>editOrd</div>";
 } // /else manage order
 
@@ -18,9 +18,9 @@ if($_GET['o'] == 'add') {
   <li><a href="dashboard.php">Home</a></li>
   <li>Order</li>
   <li class="active">
-  	<?php if($_GET['o'] == 'add') { ?>
+  	<?php if(isset($_GET['o']) && $_GET['o'] == 'add') { ?>
   		Add Order
-		<?php } else if($_GET['o'] == 'manord') { ?>
+		<?php } else if(isset($_GET['o']) && $_GET['o'] == 'manord') { ?>
 			Manage Order
 		<?php } // /else manage order ?>
   </li>
@@ -29,11 +29,11 @@ if($_GET['o'] == 'add') {
 
 <h4>
 	<i class='glyphicon glyphicon-circle-arrow-right'></i>
-	<?php if($_GET['o'] == 'add') {
+	<?php if(isset($_GET['o']) && $_GET['o'] == 'add') {
 		echo "Add Order";
-	} else if($_GET['o'] == 'manord') { 
+	} else if(isset($_GET['o']) && $_GET['o'] == 'manord') { 
 		echo "Manage Order";
-	} else if($_GET['o'] == 'editOrd') { 
+	} else if(isset($_GET['o']) && $_GET['o'] == 'editOrd') { 
 		echo "Edit Order";
 	}
 	?>	
@@ -44,18 +44,18 @@ if($_GET['o'] == 'add') {
 <div class="panel panel-default">
 	<div class="panel-heading">
 
-		<?php if($_GET['o'] == 'add') { ?>
+		<?php if(isset($_GET['o']) && $_GET['o'] == 'add') { ?>
   		<i class="glyphicon glyphicon-plus-sign"></i>	Add Order
-		<?php } else if($_GET['o'] == 'manord') { ?>
+		<?php } else if(isset($_GET['o']) && $_GET['o'] == 'manord') { ?>
 			<i class="glyphicon glyphicon-edit"></i> Manage Order
-		<?php } else if($_GET['o'] == 'editOrd') { ?>
+		<?php } else if(isset($_GET['o']) && $_GET['o'] == 'editOrd') { ?>
 			<i class="glyphicon glyphicon-edit"></i> Edit Order
 		<?php } ?>
 
 	</div> <!--/panel-->	
 	<div class="panel-body">
 			
-		<?php if($_GET['o'] == 'add') { 
+		<?php if(isset($_GET['o']) && $_GET['o'] == 'add') { 
 			// add order
 			?>			
 
@@ -121,7 +121,7 @@ if($_GET['o'] == 'add') {
 					    </div>
 					  </div> <!--/form-group-->
 					  <div class="form-group">
-					    <label for="clientDistrict" class="col-sm-4">Client cDistrict</label>
+					    <label for="clientDistrict" class="col-sm-4">Client District</label>
 					    <div class="col-sm-8">
 					      <input type="text" class="form-control" id="clientDistrict" name="clientDistrict" placeholder="Client District" autocomplete="off" />
 					    </div>
@@ -183,12 +183,12 @@ if($_GET['o'] == 'add') {
 			  					<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
 			  						<option value="">~~SELECT~~</option>
 			  						<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
-			  							$productData = $connect->query($productSql);
+			  							// $productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  							// $productData = $connect->query($productSql);
 
-			  							while($row = $productData->fetch_array()) {									 		
-			  								echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."'>".$row['product_name']."</option>";
-										 	} // /while 
+			  							// while($row = $productData->fetch_array()) {									 		
+			  							// 	echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."'>".$row['product_name']."</option>";
+										 	// } // /while 
 
 			  						?>
 		  						</select>
@@ -328,7 +328,7 @@ if($_GET['o'] == 'add') {
 			    </div>
 			  </div>
 			</form>
-		<?php } else if($_GET['o'] == 'manord') { 
+		<?php } else if(isset($_GET['o']) && $_GET['o'] == 'manord') { 
 			// manage order
 			?>
 
@@ -350,7 +350,7 @@ if($_GET['o'] == 'add') {
 
 		<?php 
 		// /else manage order
-		} else if($_GET['o'] == 'editOrd') {
+		} else if(isset($_GET['o']) && $_GET['o'] == 'editOrd') {
 			// get order
 			?>
 			
@@ -358,33 +358,112 @@ if($_GET['o'] == 'add') {
 
   		<form class="form-horizontal" method="POST" action="php_action/editOrder.php" id="editOrderForm">
 
-  			<?php $orderId = $_GET['i'];
+  			<?php 
+  		// 	$orderId = $_GET['i'];
 
-  			$sql = "SELECT orders.order_id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status,orders.payment_place,orders.gstn FROM orders 	
-					WHERE orders.order_id = {$orderId}";
+  		// 	$sql = "SELECT orders.order_id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status,orders.payment_place,orders.gstn FROM orders 	
+				// 	WHERE orders.order_id = {$orderId}";
 
-				$result = $connect->query($sql);
-				$data = $result->fetch_row();
+				// $result = $connect->query($sql);
+				// $data = $result->fetch_row();
   			?>
 
-			  <div class="form-group">
-			    <label for="orderDate" class="col-sm-2 control-label">Order Date</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off" value="<?php echo $data[1] ?>" />
-			    </div>
-			  </div> <!--/form-group-->
-			  <div class="form-group">
-			    <label for="clientName" class="col-sm-2 control-label">Client Name</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" />
-			    </div>
-			  </div> <!--/form-group-->
-			  <div class="form-group">
-			    <label for="clientContact" class="col-sm-2 control-label">Client Contact</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" />
-			    </div>
-			  </div> <!--/form-group-->			  
+			<div class="col-md-6">  
+				<div class="panel panel-default">
+					<div class="panel-heading">
+				  		<i class="glyphicon glyphicon-plus-sign"></i>	Address Details
+					</div> <!--/panel-->	
+					<div class="panel-body">  				
+					  <div class="form-group">
+					    <label for="orderType" class="col-sm-4">Order Type</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="orderType" name="orderType" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->  					
+					  <div class="form-group">
+					    <label for="orderDate" class="col-sm-4">Order Date</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="deliveryDate" class="col-sm-4">Delivery Date</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="deliveryDate" name="deliveryDate" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->				  
+					  <div class="form-group">
+					    <label for="clientName" class="col-sm-4">Client Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientContact" class="col-sm-4">Client Contact</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					  <div class="form-group">
+					    <label for="deliveryInstructions" class="col-sm-4">Delivery Instructions</label>
+					    <div class="col-sm-8">
+					      <TEXTAREA type="text" class="form-control" id="deliveryInstructions" name="deliveryInstructions" placeholder="Delivery Instructions" autocomplete="off"></TEXTAREA>
+					    </div>
+					  </div> <!--/form-group-->	
+					</div>
+				</div> 				  				  	  
+			</div>
+			<div class="col-md-6">  
+				<div class="panel panel-default">
+					<div class="panel-heading">
+				  		<i class="glyphicon glyphicon-plus-sign"></i>	Address Details
+					</div> <!--/panel-->	
+					<div class="panel-body">  				
+					  <div class="form-group">
+					    <label for="clientStreet" class="col-sm-4">Client Street</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientStreet" name="clientStreet" placeholder="Client Street"autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientDistrict" class="col-sm-4">Client District</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientDistrict" name="clientDistrict" placeholder="Client District" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->
+					  <div class="form-group">
+					    <label for="clientMunicipulty" class="col-sm-4">Client Municipulty</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientMunicipulty" name="clientMunicipulty" placeholder="Client Municipulty" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="clientLatitude" class="col-sm-4">Client Latitude</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientLatitude" name="clientLatitude" placeholder="Client Latitude" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="clientLongitude" class="col-sm-4">Client Longitude</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="clientLongitude" name="clientLongitude" placeholder="Client Longitude" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					  <div class="form-group">
+					    <label for="pickupURL" class="col-sm-4">Pickup URL</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="pickupURL" name="pickupURL" placeholder="Pickup URL" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->	
+					  <div class="form-group">
+					    <label for="deliveryURL" class="col-sm-4">Delivery URL</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="deliveryURL" name="deliveryURL" placeholder="Delivery URL" autocomplete="off" />
+					    </div>
+					  </div> <!--/form-group-->		
+					</div>
+				</div> 				  				  	  
+			</div>		  
 
 			  <table class="table" id="productTable">
 			  	<thead>
@@ -409,7 +488,7 @@ if($_GET['o'] == 'add') {
 			  		// for($x = 1; $x <= count($orderItemData); $x++) {
 			  		$x = 1;
 			  		while($orderItemData = $orderItemResult->fetch_array()) { 
-			  			// print_r($orderItemData); ?>
+			  			print_r($orderItemData); ?>
 			  			<tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">			  				
 			  				<td style="margin-left:20px;">
 			  					<div class="form-group">
@@ -417,19 +496,19 @@ if($_GET['o'] == 'add') {
 			  					<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
 			  						<option value="">~~SELECT~~</option>
 			  						<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
-			  							$productData = $connect->query($productSql);
+			  							// $productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  							// $productData = $connect->query($productSql);
 
-			  							while($row = $productData->fetch_array()) {									 		
-			  								$selected = "";
-			  								if($row['product_id'] == $orderItemData['product_id']) {
-			  									$selected = "selected";
-			  								} else {
-			  									$selected = "";
-			  								}
+			  							// while($row = $productData->fetch_array()) {									 		
+			  							// 	$selected = "";
+			  							// 	if($row['product_id'] == $orderItemData['product_id']) {
+			  							// 		$selected = "selected";
+			  							// 	} else {
+			  							// 		$selected = "";
+			  							// 	}
 
-			  								echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
-										 	} // /while 
+			  							// 	echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
+										 	// } // /while 
 
 			  						?>
 		  						</select>
@@ -442,20 +521,20 @@ if($_GET['o'] == 'add') {
 							<td style="padding-left:20px;">
 			  					<div class="form-group">
 									<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
-			  							$productData = $connect->query($productSql);
+			  						// 	$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  						// 	$productData = $connect->query($productSql);
 
-			  							while($row = $productData->fetch_array()) {									 		
-			  								$selected = "";
-			  								if($row['product_id'] == $orderItemData['product_id']) { 
-			  									echo "<p id='available_quantity".$row['product_id']."'>".$row['quantity']."</p>";
-											}
-			  								 else {
-			  									$selected = "";
-			  								}
+			  						// 	while($row = $productData->fetch_array()) {									 		
+			  						// 		$selected = "";
+			  						// 		if($row['product_id'] == $orderItemData['product_id']) { 
+			  						// 			echo "<p id='available_quantity".$row['product_id']."'>".$row['quantity']."</p>";
+											// }
+			  						// 		 else {
+			  						// 			$selected = "";
+			  						// 		}
 
-			  								//echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
-										 	} // /while 
+			  						// 		//echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
+										 // 	} // /while 
 
 			  						?>
 									
