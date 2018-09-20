@@ -1,4 +1,7 @@
-<?php require_once 'includes/header.php'; ?>
+<?php 	require_once 'includes/header.php';
+		require_once 'php_action/classes/class.vendor.php';
+
+ ?>
 
 <?php if(isset($_GET['v']) && $_GET['v']=='manved'){ ?>
 
@@ -42,7 +45,13 @@
 
 <?php } ?>
 
-<?php if(isset($_GET['v']) && $_GET['v']=='addved'){ ?>
+<?php if(isset($_GET['v']) && $_GET['v']=='addved'){
+
+	if(isset($_POST['createVendorBtn'])){ 
+
+		$messages = register($_POST["firstName"],$_POST["lastName"],$_POST["Category"],$_POST["phoneNumber"],$_POST["Email"],$_POST["ageBracket"],$_POST["Country"],$_POST["countryCode"],$_POST["Gender"],$_POST["Location"],$_POST["Town"],$_POST["stallNumber"],$_POST["Status"],$_POST["xikilaAccount"],$_POST["wantBancoAccount"],$_POST["bancoAccount"]);
+	}
+?>
 
 <div class="row">
 	<div class="col-md-12">
@@ -60,13 +69,19 @@
 
 				<div class="remove-messages"></div>
 
-		    	<form class="form-horizontal" id="submitVendorForm" action="php_action/createVendor.php" method="POST" >
+		    	<form class="form-horizontal" id="submitVendorForm" method="POST" >
 			      <div class="modal-header">
 			        <h4 class="modal-title"><i class="fa fa-plus"></i> Add Vendor</h4>
 			      </div>
 			      <div class="modal-body">
 
-			      	<div id="add-vendor-messages"></div>
+			      	<div class="messages">
+						<?php if(isset($messages)) {
+							echo '<div class="alert alert-warning" role="alert">
+									<i class="glyphicon glyphicon-exclamation-sign"></i>
+									'.$messages.'</div>';
+						} ?>
+					</div>
 
 			      	<div class="col-sm-6">
 				        <div class="form-group">
@@ -89,7 +104,13 @@
 							    <div class="col-sm-8">
 							      <select type="text" class="form-control" id="Category" placeholder="Category" name="Category" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
-							      	<option value="N/A">N/A</option>
+							      	<option >Runner</option>
+							      	<option >Market Vendor</option>
+							      	<option >Street Hawker</option>
+							      	<option >Farmer</option>
+							      	<option >Individual Vendor</option>
+							      	<option >Service Provider</option>
+							      	<option >Individual Vendor</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group-->	
@@ -113,7 +134,10 @@
 							    <div class="col-sm-8">
 							      <select type="text" class="form-control" id="ageBracket" placeholder="Age Bracket" name="ageBracket" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
-							      	<option value="N/A">N/A</option>
+							      	<option >0-15</option>
+							      	<option >15-25</option>
+							      	<option >25-45</option>
+							      	<option >45+</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group--> 
@@ -126,7 +150,7 @@
 							    <div class="col-sm-8">
 							      <select type="text" class="form-control" id="Country" placeholder="Country" name="Country" autocomplete="off" required>
 							      	<option value="">~~SELECT~~</option>
-							      	<option value="N/A">N/A</option>
+							      	<option >Angola</option>
 							      </select>
 							    </div>
 				        </div> <!-- /form-group-->
@@ -147,14 +171,21 @@
 							      	<option value="FEMALE">FEMALE</option>
 							      </select>
 							    </div>
-				        </div> <!-- /form-group-->	
+				        </div> <!-- /form-group-->				        	
 				        <div class="form-group">
 				        	<label for="Town" class="col-sm-3">Town: </label>
 				        	<label class="col-sm-1 control-label">: </label>
 							    <div class="col-sm-8">
 							      <input type="text" class="form-control" id="Town" placeholder="Town" name="Town" autocomplete="off" required>
 							    </div>
-				        </div> <!-- /form-group-->		
+				        </div> <!-- /form-group-->	
+					    <div class="form-group">
+					       	<label for="Location" class="col-sm-3">Location: </label>
+					        <label class="col-sm-1 control-label">: </label>
+								<div class="col-sm-8">
+								    <input type="text" class="form-control" id="Location" placeholder="Location" name="Location" autocomplete="off" required>
+								</div>
+					    </div> <!-- /form-group-->		
 				        <div class="form-group">
 				        	<label for="stallNumber" class="col-sm-3">Stall Number: </label>
 				        	<label class="col-sm-1 control-label">: </label>
@@ -210,7 +241,7 @@
 							    <br/>				        		  	
 							</label>
 				        </div> <!-- /form-group--> 			        
-			        	<button type="submit" class="btn btn-primary pull-right" id="createVendorBtn" data-loading-text="Loading..." autocomplete="off">Save Changes</button>
+			        	<button type="submit" class="btn btn-primary pull-right" id="createVendorBtn" name="createVendorBtn" data-loading-text="Loading..." autocomplete="off">Save Changes</button>
 			      	</div>
 
 			      </div> <!-- /modal-body -->
@@ -225,7 +256,14 @@
 <?php } ?>
 
 
-<?php if(isset($_GET['v']) && $_GET['v']=='editved'){ ?>
+<?php if(isset($_GET['v']) && $_GET['v']=='editved' && isset($_GET['userid'])){ 
+
+	$vendor = getSelectedVendor($_GET['userid']);
+	if(isset($_POST['editVendorBtn'])){ 
+
+		$messages = editVendor($_GET['userid'],$_POST["editFirstName"],$_POST["editLastName"],$_POST["editCategory"],$_POST["editPhoneNumber"],$_POST["editEmail"],$_POST["editAgeBracket"],$_POST["editCountry"],$_POST["editCountryCode"],$_POST["editGender"],$_POST["editTown"],$_POST["editLocation"],$_POST["editStallNumber"],$_POST["editStatus"],$_POST["editXikilaAccount"],$_POST["editBancoAccount"],$_POST["editWantBancoAccount"]);
+	}
+?>
 
 <div class="row">
 	<div class="col-md-12">
@@ -243,13 +281,19 @@
 
 				<div class="remove-messages"></div>
 
-		    	<form class="form-horizontal" id="editVendorForm" action="php_action/editVendor.php" method="POST">
+		    	<form class="form-horizontal" id="editVendorForm" method="POST">
 			      <div class="modal-header">
-			        <h4 class="modal-title"><i class="fa fa-edit"></i> Edit Supplier</h4>
+			        <h4 class="modal-title"><i class="fa fa-edit"></i> Edit Vendor</h4>
 			      </div>
 			      <div class="modal-body">
 
-			      	<div id="edit-vendor-messages"></div>
+			      	<div class="messages">
+						<?php if(isset($messages)) {
+							echo '<div class="alert alert-warning" role="alert">
+									<i class="glyphicon glyphicon-exclamation-sign"></i>
+									'.$messages.'</div>';
+						} ?>
+					</div>
 
 			      	<div class="modal-loading div-hide" style="width:50px; margin:auto;padding-top:50px; padding-bottom:50px;">
 								<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
@@ -262,22 +306,29 @@
 					        	<label for="firstName" class="col-sm-3">First Name: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editFirstName" placeholder="First Name" name="editFirstName" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editFirstName" placeholder="First Name" name="editFirstName" value="<?php echo $vendor['firstname'];?>" autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->	    
 					        <div class="form-group">
 					        	<label for="lastName" class="col-sm-3">Last Name: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editLastName" placeholder="Last Name" name="editLastName" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editLastName" placeholder="Last Name" name="editLastName" value="<?php echo $vendor['lastname'];?>" autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->	 				        
 					        <div class="form-group">
-					        	<label for="vendorCategory" class="col-sm-3">Vendor Category: </label>
+					        	<label for="Category" class="col-sm-3">Category: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <select type="text" class="form-control" id="editVendorCategory" placeholder="Vendor Type" name="editVendorCategory" autocomplete="off" required>
-								      	<option value="">~~SELECT~~</option>
+								      <select type="text" class="form-control" id="editCategory" placeholder="" name="editCategory" autocomplete="off" required>
+								      	<option ><?php echo $vendor['category'];?></option>
+								      	<option >Runner</option>
+								      	<option >Market Vendor</option>
+								      	<option >Street Hawker</option>
+								      	<option >Farmer</option>
+								      	<option >Individual Vendor</option>
+								      	<option >Service Provider</option>
+								      	<option >Individual Vendor</option>
 								      </select>
 								    </div>
 					        </div> <!-- /form-group-->	
@@ -285,14 +336,14 @@
 					        	<label for="phoneNumber" class="col-sm-3">Phone Number</label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editPhoneNumber" placeholder="Phone Number" name="editPhoneNumber" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editPhoneNumber" placeholder="Phone Number" name="editPhoneNumber" value="<?php echo $vendor['phonenumber'];?>"autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->	    
 					        <div class="form-group">
-					        	<label for="vendorEmail" class="col-sm-3 ">Vendor Email: </label>
+					        	<label for="Email" class="col-sm-3 ">Email: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editVendorEmail" placeholder="Vendor Email" name="editVendorEmail" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editEmail" placeholder="Email" name="editEmail" value="<?php echo $vendor['email'];?>"autocomplete="off" required>
 								    </div>
 					        </div><!--  /form-group	-->  
 					        <div class="form-group">
@@ -300,7 +351,11 @@
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
 								      <select type="text" class="form-control" id="editAgeBracket" placeholder="Age Bracket" name="editAgeBracket" autocomplete="off" required>
-								      	<option value="">~~SELECT~~</option>
+								      	<option ><?php echo $vendor['agebracket'];?></option>
+								      	<option >0-15</option>
+								      	<option >15-25</option>
+								      	<option >25-45</option>
+								      	<option >45+</option>
 								      </select>
 								    </div>
 					        </div> <!-- /form-group--> 
@@ -311,8 +366,8 @@
 					        	<label for="Country" class="col-sm-3">Country: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <select type="text" class="form-control" id="editVendorCountry" placeholder="Vendor Country" name="editVendorCountry" autocomplete="off" required>
-								      	<option value="">~~SELECT~~</option>
+								      <select type="text" class="form-control" id="editCountry" placeholder="Country" name="editCountry"autocomplete="off" required>
+								      	<option ><?php echo $vendor['country'];?></option>
 								      </select>
 								    </div>
 					        </div> <!-- /form-group-->
@@ -320,40 +375,52 @@
 					        	<label for="Country" class="col-sm-3">Country Code: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editCountryCode" placeholder="Country Code" name="editCountryCode" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editCountryCode" placeholder="Country Code" name="editCountryCode" value="<?php echo $vendor['countrycode'];?>"autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->	
 					        <div class="form-group">
-					        	<label for="vendorGender" class="col-sm-3">Vendor Gender</label>
+					        	<label for="Gender" class="col-sm-3">Gender</label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <select type="text" class="form-control" id="editVendorGender" placeholder="Vendor Gender" name="editVendorGender" autocomplete="off" required>
-								      	<option value="">~~SELECT~~</option>
+								      <select type="text" class="form-control" id="editGender" placeholder="Gender" name="editGender"  autocomplete="off" required>
+								      	<option ><?php echo $vendor['gender'];?></option>
 								      	<option value="MALE">MALE</option>
 								      	<option value="FEMALE">FEMALE</option>
 								      </select>
 								    </div>
-					        </div> <!-- /form-group-->	
+					        </div> <!-- /form-group-->
+					        <div class="form-group">
+				        	<label for="Town" class="col-sm-3">Town: </label>
+				        	<label class="col-sm-1 control-label">: </label>
+							    <div class="col-sm-8">
+							      <input type="text" class="form-control" id="Town" placeholder="Town" name="editTown" value="<?php echo $vendor['town'];?>"autocomplete="off" required>
+							    </div>
+				        	</div> <!-- /form-group-->		
 					        <div class="form-group">
 					        	<label for="Location" class="col-sm-3">Location: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editVendorLocation" placeholder="Vendor Location" name="editVendorLocation" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editLocation" placeholder="Location" name="editLocation" value="<?php echo $vendor['location'];?>"autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->		
 					        <div class="form-group">
 					        	<label for="stallNumber" class="col-sm-3">Stall Number: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="editStallNumber" placeholder="Stall Number" name="editStallNumber" autocomplete="off" required>
+								      <input type="text" class="form-control" id="editStallNumber" placeholder="Stall Number" name="editStallNumber" value="<?php echo $vendor['stallnumber'];?>"autocomplete="off" required>
 								    </div>
 					        </div> <!-- /form-group-->
 					        <div class="form-group">
-					        	<label for="vendorStatus" class="col-sm-3">Status: </label>
+					        	<label for="Status" class="col-sm-3">Status: </label>
 					        	<label class="col-sm-1 control-label">: </label>
 								    <div class="col-sm-8">
-								      <select class="form-control" id="editVendorStatus" name="editVendorStatus" required>
-								      	<option value="">~~SELECT~~</option>
+								      <select class="form-control" id="editStatus" name="editStatus" required>
+								      	<option ><?php 
+								      		if($vendor['userstatus']==1){
+								      			echo "Available";
+								      		}else{ echo "Not Available"; }?>
+								      			
+								      	</option>
 								      	<option value="1">Available</option>
 								      	<option value="2">Not Available</option>
 								      </select>
@@ -363,23 +430,40 @@
 
 				        <div class="col-sm-12">
 				      		<div class="form-group">
-					        	<label for="vendor_has_xikila_acc"  class="col-sm-12">
-					        		<input type="checkbox" id="vendor_has_xikila_acc " name="vendor_has_xikila_acc " required>
-					        		    	DO YOU HAVE XIKILA ACCOUNT?
+					        	<label  class="col-sm-12">DO YOU HAVE XIKILA ACCOUNT?
+									<br/>
+									<label class="small">
+								      <input type="radio" name="editXikilaAccount" value="Yes"> Yes</label>
+								     <br/>
+								    <label class="small">
+								      <input type="radio" name="editXikilaAccount" value="No"> No</label>
+								    <br/>
 								</label>
 					        </div> <!-- /form-group--> 
 				      		<div class="form-group">
-				      			<label for="vendor_need_bnco_acc"  class="col-sm-12">
-					        		<input type="checkbox" id="vendor_need_bnco_acc " name="vendor_need_bnco_acc " required>
-					        		     	DO YOU HAVE BANCO POSTAL ACCOUNT?
+				      			<label  class="col-sm-12">DO YOU HAVE BANCO POSTAL ACCOUNT?
+									<br/>
+									<label class="small">
+								      <input type="radio" name="editBancoAccount" value="Yes"> Yes</label>
+								     <br/>
+								    <label class="small">
+								      <input type="radio" name="editBancoAccount" value="No"> No</label>
+								    <br/>
+					        		
 								</label>
 					        </div> <!-- /form-group--> 
 				      		<div class="form-group">
-				      			<label for="vendor_has_banco_acc"  class="col-sm-12">
-					        		<input type="checkbox" id="vendor_has_banco_acc " name="vendor_has_banco_acc " required>   	DO YOU WANT BANCO POSTAL ACCOUNT?
+				      			<label class="col-sm-12">DO YOU WANT BANCO POSTAL ACCOUNT?
+									<br/>
+									<label class="small">
+								      <input type="radio" name="editWantBancoAccount" value="Yes"> Yes</label>
+								     <br/>
+								    <label class="small">
+								      <input type="radio" name="editWantBancoAccount" value="No"> No</label>
+								    <br/>				        		  	
 								</label>
-					        </div> <!-- /form-group--> 			        
-				        	<button type="submit" class="btn btn-success pull-right" id="editVendorBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
+					        </div> <!-- /form-group--> 				        
+				        	<button type="submit" class="btn btn-success pull-right" id="editVendorBtn" name="editVendorBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
 				      	</div>	
 				      </div>         	        
 				      <!-- /edit brand result -->
@@ -398,25 +482,58 @@
 
 <?php } ?>
 
-<!-- remove brand -->
-<div class="modal fade" tabindex="-1" role="dialog" id="removeMemberModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Remove Vendor</h4>
-      </div>
-      <div class="modal-body">
-        <p>Do you really want to remove ?</p>
-      </div>
-      <div class="modal-footer removeVendorFooter">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-        <button type="button" class="btn btn-primary" id="removeVendorBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- /remove brand -->
+<?php if(isset($_GET['v']) && $_GET['v']=='removeved' && isset($_GET['userid'])){ 
+
+		$vendor = getSelectedVendor($_GET['userid']);
+		if(isset($_POST['removeVendorBtn'])){
+			$messages = removeVendor($_POST['userID']);
+		}
+?>
+
+
+	<div class="container">
+		<div class="row vertical">
+			<div class="col-md-5 col-md-offset-4">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Remove Vendor</h4>
+					</div>
+					<div class="panel-body">
+						    <div class="modal-body">
+        							<p>Do you really want to remove ?</p>
+      						</div>
+
+						<div class="messages">
+						<?php if(isset($messages)) {
+							echo '<div class="alert alert-warning" role="alert">
+									<i class="glyphicon glyphicon-exclamation-sign"></i>
+									'.$messages.'</div>';
+						} ?>
+						</div>
+
+						<form class="form-horizontal" method="post">
+							<fieldset>
+							  	<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<input type="hidden" name="userID" value="<?php echo $vendor['userid']; ?>">
+									    <a href="vendor.php?v=manved"> <i class="glyphicon glyphicon-remove-sign"></i> Close</a>
+        								<button type="submit" class="btn btn-primary" id="removeVendorBtn" name="removeVendorBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save changes</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<!-- panel-body -->
+				</div>
+				<!-- /panel -->
+			</div>
+			<!-- /col-md-4 -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- container -->
+
+<?php } ?>
 
 <script src="custom/js/vendor.js"></script>
 

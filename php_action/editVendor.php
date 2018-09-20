@@ -24,7 +24,7 @@ if($_POST) {
     $bancoAccount = $_POST["bancoAccount"];
     $userID = $categoryCode."."."1".".".$phoneNumber;
 
-	register($userID,$firstName,$lastName,$Category,$categoryCode,$phoneNumber,$Email,$ageBracket,$Country,$countryCode,$Gender,$Town,$Status,$xikilaAccount,$bancoAccount,$wantBancoAccount);
+	editVendor($userID,$firstName,$lastName,$Category,$categoryCode,$phoneNumber,$Email,$ageBracket,$Country,$countryCode,$Gender,$Town,$Status,$xikilaAccount,$bancoAccount,$wantBancoAccount);
 
 	
 	$valid['success'] = true;
@@ -32,5 +32,3 @@ if($_POST) {
 	echo json_encode($valid);
  
 } // /if $_POST
-
-?>	

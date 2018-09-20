@@ -27,8 +27,8 @@ if($vendors!="") {
 	    Action <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">
-	    <li><a type="button" data-toggle="modal" data-target="#editBrandModel" onclick="editVendors('.$userid.')"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
-	    <li><a type="button" data-toggle="modal" data-target="#removeMemberModal" onclick="removeVendors('.$userid.')"> <i class="glyphicon glyphicon-trash"></i> Remove</a></li>       
+	    <li><a href="vendor.php?v=editved&userid='.$userid.'"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
+	    <li><a href="vendor.php?v=removeved&userid='.$userid.'"> <i class="glyphicon glyphicon-trash"></i> Remove</a></li>       
 	  </ul>
 	</div>';
 
